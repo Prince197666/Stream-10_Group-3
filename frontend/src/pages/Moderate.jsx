@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCookies } from 'react-cookie';
 import Login from '../components/Login';
+import ArticleList from '../components/ArticleList';
 
 function Moderate() {
   const [cookie] = useCookies();
@@ -10,7 +11,7 @@ function Moderate() {
   return (
     <div>
       {isLoggedIn()
-        ? <p>Logged in</p>
+        ? <ArticleList />
         : <Login />}
     </div>
   );
