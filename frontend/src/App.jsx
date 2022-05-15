@@ -3,6 +3,7 @@ import {
   Route, NavLink, Routes, BrowserRouter as Router,
 } from 'react-router-dom';
 import Home from './pages/Home';
+import Moderate from './pages/Moderate';
 
 function App() {
   return (
@@ -13,12 +14,13 @@ function App() {
           <li><NavLink to="/">Home</NavLink></li>
           <li><NavLink to="/">Search</NavLink></li>
           <li><NavLink to="/">Submit</NavLink></li>
-          <li><NavLink to="/">Moderate</NavLink></li>
+          <li><NavLink to="/Moderate">Moderate</NavLink></li>
           <li><NavLink to="/">Analyze</NavLink></li>
         </ul>
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Home />} />
+            <Route exact path="/Moderate" element={<Moderate />} />
           </Routes>
         </div>
       </div>
