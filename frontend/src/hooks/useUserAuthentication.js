@@ -9,7 +9,7 @@ function useAuthentication() {
     const { name, password } = JSON.parse(loginData);
     // get all moderator info
     axios
-      .get('http://localhost:8082/api/moderators')
+      .get('http://localhost:8082/api/users/moderators')
       .then((res) => {
         // check if username and password match
 
