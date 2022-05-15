@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ModeratorSchema = new mongoose.Schema({
+const AnalystSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -16,4 +16,4 @@ const ModeratorSchema = new mongoose.Schema({
 });
   
 //mongoose.model('document name', model object variable);
-module.exports = Moderator = mongoose.model('moderator', ModeratorSchema);
+module.exports = Analyst = mongoose.model('analysts', AnalystSchema);

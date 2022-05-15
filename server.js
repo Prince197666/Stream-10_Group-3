@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require('cors');
 // routes
 const users = require("./routes/api/user");
+const articles = require("./routes/api/article");
 
 const app = express();
 
@@ -19,4 +20,5 @@ const port = process.env.PORT || 8082;
 app.listen(port, () => console.log(`Server running on port ${port}`));
 
 // use Routes
-app.use("/api", users);
+app.use("/api/users", users);
+app.use("/api/articles", articles);
