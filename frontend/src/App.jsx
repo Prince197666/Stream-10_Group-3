@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import Home from './pages/Home';
 import Moderate from './pages/Moderate';
+import ModeratorForm from './pages/ModeratorForm';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/Moderate" element={<Moderate />} />
+            <Route path="/show-article/:id" element={<ModeratorForm />} />
           </Routes>
         </div>
       </div>
