@@ -10,12 +10,14 @@ function ArticleList() {
 
   return (
     <>
-      <p>Unchecked Articles</p>
-      <ul>
-        {articleList.map((article) => (
-          <Link to={`/show-article/${article._id}`}>{article.title}</Link>
+      <p>Article List</p>
+      <ol>
+        {articleList.map((article, index) => (
+          <li key={(index + 1).toString()}>
+            <Link to={`/show-article/${article._id}`}>{article.title}</Link>
+          </li>
         ))}
-      </ul>
+      </ol>
     </>
   );
 }
