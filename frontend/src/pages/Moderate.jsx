@@ -6,7 +6,7 @@ import ArticleList from '../components/ArticleList';
 function Moderate() {
   const [cookie] = useCookies();
 
-  const isLoggedIn = () => ((cookie != null) && ('status' in cookie) && (cookie.status === 'moderator'));
+  const isLoggedIn = () => ((cookie != null) && ('role' in cookie) && (cookie.role === 'moderator'));
 
   return (
     <div>

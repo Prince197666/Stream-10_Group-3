@@ -17,9 +17,11 @@ function useAuthentication() {
           const moderator = res.data[i];
           console.log(`name from DB: ${moderator.name}`);
           console.log(`pass from DB: ${moderator.password}`);
+          console.log(`ID from DB: ${moderator._id}`);
           if ((moderator.name === name) && (moderator.password === password)) {
             // set login status to cookie
-            setCookie('status', 'moderator');
+            setCookie('role', 'moderator');
+            setCookie('user_id', moderator._id);
             break;
           }
         }
