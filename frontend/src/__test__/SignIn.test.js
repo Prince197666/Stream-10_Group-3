@@ -5,7 +5,7 @@ import { render, screen } from '@testing-library/react';
 import {BrowserRouter as Router} from 'react-router-dom';
 import SignIn from '../components/SignIn';
 
-test('login component has the proper elements', () => {
+test('Sign in component has the proper elements', () => {
   render(
     <Router>
       <SignIn />
