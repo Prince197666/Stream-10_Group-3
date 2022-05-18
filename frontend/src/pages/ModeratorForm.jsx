@@ -1,87 +1,156 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useForm } from 'react-hook-form';
 import useFetchArticle from '../hooks/useFetchArticle';
-import useFileRegister from '../hooks/useFileRegister';
+import useArticleRegister from '../hooks/useArticleRegister';
 
 function ModeratorForm() {
   const { article, getArticleById } = useFetchArticle();
   const { id } = useParams();
-  const { udpateStatus } = useFileRegister();
+  const { udpateArticle } = useArticleRegister();
   const [cookie] = useCookies();
+  const [isModerator, setIsModertor] = useState(false);
+  const sePractices = ['Code Quality', 'Improvement', 'Product Quality', 'Against', 'Team Satisfaction'];
+  const { register, handleSubmit, setValue } = useForm({ shouldUnregister: false });
 
   // eslint-disable-next-line no-lone-blocks
-  { /* init process */ }
+  // init process: get article id and get user role
   useEffect(() => {
     getArticleById(id);
+    setIsModertor((cookie.role === 'moderator'));
   }, []);
 
-  const passArticle = () => udpateStatus(id, 'pass', cookie.user_id);
-  const rejectArticle = () => udpateStatus(id, 'reject', cookie.user_id);
+  // when an docuemnt info was retrieved, fill the inputs in the form
+  useEffect(() => {
+    Object.keys(article).forEach((key) => {
+      setValue(key, article[key]);
+    });
+  }, [article]);
+
+  const onSubmit = (data) => {
+    udpateArticle(id, data);
+  };
+
+  const handlePassSubmit = () => {
+    setValue('moderator_id', cookie.user_id);
+    setValue('status', 'pass');
+    handleSubmit(onSubmit)();
+  };
+
+  const handleRejectSubmit = () => {
+    setValue('moderator_id', cookie.user_id);
+    setValue('status', 'reject');
+    handleSubmit(onSubmit)();
+  };
 
   return (
     <>
       <p>Article Info</p>
-      <form>
-        <label htmlFor="title">
-          Title:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.title} />
-        </label>
-        <label htmlFor="Author">
-          Author:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.author} />
-        </label>
-        <label htmlFor="Journal-Name">
-          Journal Name:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.journal_name} />
-        </label>
-        <label htmlFor="Year">
-          Year:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.year_of_publication} />
-        </label>
-        <label htmlFor="SE-Practice">
-          SE-Practice:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.se_practice} />
-        </label>
-        <label htmlFor="Claimed-Benefit">
-          Claimed Benefit:
-          {article.claimed_benefit?.map((benefit, index) => (
-            <label htmlFor="benefit">
-              <input
-                type="checkbox"
-                name="se-practice"
-                value={benefit}
-                disabled={(cookie.role === 'moderator')}
-                key={(index + 1).toString()}
-                label={benefit}
-                checked
-              />
-              {benefit}
-            </label>
-          ))}
-        </label>
-        <label htmlFor="Result-of-Evidence">
-          Result of Evidence:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.result_of_evidence} />
-        </label>
-        <label htmlFor="Type-of-Research">
-          Type of Research:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.type_of_research} />
-        </label>
-        <label htmlFor="Type-of-Participant">
-          Type of Participant:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.type_of_participant} />
-        </label>
-        <label htmlFor="DOI">
-          DOI:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.doi} />
-        </label>
-        <label htmlFor="Email">
-          Email:
-          <input type="text" disabled={(cookie.role === 'moderator')} value={article.submitter_email} />
-        </label>
-        <button type="button" onClick={passArticle}>Pass</button>
-        <button type="button" onClick={rejectArticle}>Reject</button>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-group row mb-3">
+          <label htmlFor="title" className="col-sm-2 col-form-label">TItile:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('title')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="author" className="col-sm-2 col-form-label">Author:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('author')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="journal_name" className="col-sm-2 col-form-label">Journal Name:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('journal_name')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="year_of_publication" className="col-sm-2 col-form-label">Year:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('year_of_publication')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="se_practice" className="col-sm-2 col-form-label">SE Practice:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('se_practice')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="claimed_benefit" className="col-sm-2 col-form-label">SE Practice:</label>
+          <div className="col-sm-10">
+            {sePractices?.map((benefit, index) => (
+              <div className="form-check form-check-inline">
+                <input
+                  {...register('claimed_benefit')}
+                  key={(index + 1).toString()}
+                  className="form-check-input"
+                  type="checkbox"
+                  name="claimed_benefit"
+                  checked={(article.claimed_benefit?.includes(benefit))}
+                  disabled={isModerator}
+                />
+                <label htmlFor={`se-practice${index + 1}`} key={`benefit-name${index + 1}`}>{benefit}</label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="result_of_evidence" className="col-sm-2 col-form-label">Result of Evidence:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('result_of_evidence')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="type_of_research" className="col-sm-2 col-form-label">Type of Research:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('type_of_research')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="type_of_participant" className="col-sm-2 col-form-label">Type of Participant:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('type_of_participant')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="doi" className="col-sm-2 col-form-label">DOI:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('doi')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <div className="form-group row mb-3">
+          <label htmlFor="submitter_email" className="col-sm-2 col-form-label">Email:</label>
+          <div className="col-sm-10">
+            <input type="text" {...register('submitter_email')} className="form-control" disabled={isModerator} />
+          </div>
+        </div>
+
+        <input type="hidden" {...register('moderator_id')} />
+        <input type="hidden" {...register('analyst_id')} />
+        <input type="hidden" {...register('status')} />
+
+        <div className="row d-flex justify-content-evenly">
+          <div className="col-4">
+            <button type="button" onClick={handlePassSubmit}>{isModerator ? 'Pass' : 'Register'}</button>
+          </div>
+          <div className="col-4">
+            <button type="button" onClick={handleRejectSubmit}>Reject</button>
+          </div>
+        </div>
       </form>
     </>
   );
