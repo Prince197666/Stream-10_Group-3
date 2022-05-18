@@ -12,7 +12,6 @@ function useFileRegister() {
         navigate('/Moderate');
       })
       .catch((err) => {
-        console.log();
         console.log(`Error in UpdateArticleInfo!: ${err}`);
       });
   };
