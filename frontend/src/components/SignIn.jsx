@@ -1,23 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import useAuthentication from '../hooks/useUserAuthentication';
 
-function Login(props) {
+function SignIn(props) {
   // eslint-disable-next-line react/prop-types
   const { from } = props;
-  const { login } = useAuthentication();
+  const { signIn } = useAuthentication();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => login(JSON.stringify(data), from);
-  const navigate = useNavigate();
-  const signIn = () => {
-    const signInId = 1;
-    if (from === 'moderators') {
-      navigate(`/Moderate/${signInId}`);
-    } else {
-      navigate(`/Analyse/${signInId}`);
-    }
-  };
+  const onSubmit = (data) => signIn(data, from);
 
   return (
     <div>
@@ -34,13 +24,19 @@ function Login(props) {
             <input type="text" {...register('password')} className="form-control" />
           </div>
         </div>
+        <div className="form-group row mb-3">
+          <label htmlFor="email" className="col-sm-2 col-form-label">Email Address:</label>
+          <div className="col-sm-8">
+            <input type="text" {...register('email')} className="form-control" />
+          </div>
+        </div>
         <br />
         <div className="row d-flex justify-content-evenly">
           <div className="col-4">
-            <input type="submit" value="Login" />
+            <input type="submit" value="Create" />
           </div>
           <div className="col-4">
-            <input type="button" value="Sign in" onClick={signIn} />
+            <input type="reset" value="Reset" />
           </div>
         </div>
       </form>
@@ -48,4 +44,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default SignIn;

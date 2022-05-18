@@ -23,8 +23,10 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/Moderate" element={<Moderate />} />
+            <Route path="/Moderate/:id" element={<Moderate />} />
             <Route path="/show-article/:id" element={<ModeratorForm />} />
             <Route exact path="/Analyse" element={<Analyse />} />
+            <Route path="/Analyse/:id" element={<Analyse />} />
           </Routes>
         </div>
       </div>

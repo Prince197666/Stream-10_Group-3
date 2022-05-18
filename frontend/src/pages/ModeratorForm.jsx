@@ -29,7 +29,7 @@ function ModeratorForm() {
   }, [article]);
 
   const onSubmit = (data) => {
-    udpateArticle(id, data);
+    udpateArticle(id, data, cookie.role);
   };
 
   const handlePassSubmit = () => {
@@ -56,7 +56,7 @@ function ModeratorForm() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-group row mb-3">
-          <label htmlFor="title" className="col-sm-2 col-form-label">TItile:</label>
+          <label htmlFor="title" className="col-sm-2 col-form-label">Titile:</label>
           <div className="col-sm-10">
             <input type="text" {...register('title')} className="form-control" disabled={isModerator} />
           </div>

@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 
 function useAuthentication() {
+  const navigate = useNavigate();
   const [, setCookie] = useCookies();
 
   const login = (loginData, from) => {
@@ -27,7 +29,23 @@ function useAuthentication() {
       });
   };
 
-  return { login };
+  // register a user
+  const signIn = (data, from) => {
+    axios
+      .post(`http://localhost:8082/api/users/${from}`, data)
+      .then(() => {
+        if (from === 'moderators') {
+          navigate('/Moderate');
+        } else {
+          navigate('/Analyse');
+        }
+      })
+      .catch(() => {
+        console.log('Error in create user');
+      });
+  };
+
+  return { login, signIn };
 }
 
 export default useAuthentication;
