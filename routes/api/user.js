@@ -19,7 +19,7 @@ router.get('/moderators/', (req, res) => {
 // @access Public
 router.get('/analysts/', (req, res) => {
   Analyst.find()
-      .then(moderators => res.json(moderators))
+      .then(analysts => res.json(analysts))
       .catch(err => res.status(404).json({ noanalystsfound: 'No analysts found' }));
 });
 

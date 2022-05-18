@@ -18,7 +18,7 @@ function ModeratorForm() {
   // init process: get article id and get user role
   useEffect(() => {
     getArticleById(id);
-    setIsModertor((cookie.role === 'moderator'));
+    setIsModertor((cookie.role === 'moderators'));
   }, []);
 
   // when an docuemnt info was retrieved, fill the inputs in the form
@@ -35,6 +35,12 @@ function ModeratorForm() {
   const handlePassSubmit = () => {
     setValue('moderator_id', cookie.user_id);
     setValue('status', 'pass');
+    handleSubmit(onSubmit)();
+  };
+
+  const handleRegisterSubmit = () => {
+    setValue('analyst_id', cookie.user_id);
+    setValue('status', 'register');
     handleSubmit(onSubmit)();
   };
 
@@ -88,7 +94,7 @@ function ModeratorForm() {
           <label htmlFor="claimed_benefit" className="col-sm-2 col-form-label">SE Practice:</label>
           <div className="col-sm-10">
             {sePractices?.map((benefit, index) => (
-              <div className="form-check form-check-inline">
+              <div key={`benefit-div${index + 1}`} className="form-check form-check-inline">
                 <input
                   {...register('claimed_benefit')}
                   key={(index + 1).toString()}
@@ -145,7 +151,9 @@ function ModeratorForm() {
 
         <div className="row d-flex justify-content-evenly">
           <div className="col-4">
-            <button type="button" onClick={handlePassSubmit}>{isModerator ? 'Pass' : 'Register'}</button>
+            {isModerator
+              ? <button type="button" onClick={handlePassSubmit}>Pass</button>
+              : <button type="button" onClick={handleRegisterSubmit}>Register</button>}
           </div>
           <div className="col-4">
             <button type="button" onClick={handleRejectSubmit}>Reject</button>

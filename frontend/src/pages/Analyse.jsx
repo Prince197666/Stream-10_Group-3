@@ -3,9 +3,9 @@ import { useCookies } from 'react-cookie';
 import Login from '../components/Login';
 import ArticleList from '../components/ArticleList';
 
-function Moderate() {
+function Analyse() {
   const [cookie] = useCookies();
-  const role = 'moderators';
+  const role = 'analysts';
 
   const isLoggedIn = () => ((cookie != null) && ('role' in cookie) && (cookie.role === role));
 
@@ -18,4 +18,4 @@ function Moderate() {
   );
 }
 
-export default Moderate;
+export default Analyse;

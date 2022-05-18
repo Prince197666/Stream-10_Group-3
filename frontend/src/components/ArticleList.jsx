@@ -2,10 +2,13 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useFetchArticle from '../hooks/useFetchArticle';
 
-function ArticleList() {
+function ArticleList(props) {
+  // eslint-disable-next-line react/prop-types
+  const { from } = props;
   const { articleList, getArticleByStatus } = useFetchArticle();
   useEffect(() => {
-    getArticleByStatus('submit');
+    const stat = (from === 'moderators') ? 'submit' : 'pass';
+    getArticleByStatus(stat);
   }, []);
 
   return (
