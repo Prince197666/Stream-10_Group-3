@@ -3,22 +3,18 @@ const mongoose = require('mongoose');
 const ArticleSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
   },
   author: {
     type: String,
-    required: true
   },
   journal_name: {
     type: String,
   },
   year_of_publication: {
     type: String,
-    required: true
   },
   se_practice: {
     type: String,
-    required: true
   },
   claimed_benefit: {
     type: Array,
@@ -37,16 +33,15 @@ const ArticleSchema = new mongoose.Schema({
   },
   submitter_email: {
     type: String,
-    required: true
   },
   user_id: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
   },
   moderator_id: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
   },
   analyst_id: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
   },
   status: {
     type: String,

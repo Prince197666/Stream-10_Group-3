@@ -1,25 +1,25 @@
+import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
 
 function useAuthentication() {
+  const navigate = useNavigate();
   const [, setCookie] = useCookies();
 
-  const login = (loginData) => {
+  const login = (loginData, from) => {
     // extract name and password from submitted data
     const { name, password } = JSON.parse(loginData);
-    // get all moderator info
+    // get all user(moderator/analyst) info
     axios
-      .get('http://localhost:8082/api/users/moderators')
+      .get(`http://localhost:8082/api/users/${from}`)
       .then((res) => {
         // check if username and password match
-
         for (let i = 0; i < res.data.length; i += 1) {
-          const moderator = res.data[i];
-          console.log(`name from DB: ${moderator.name}`);
-          console.log(`pass from DB: ${moderator.password}`);
-          if ((moderator.name === name) && (moderator.password === password)) {
+          const user = res.data[i];
+          if ((user.name === name) && (user.password === password)) {
             // set login status to cookie
-            setCookie('status', 'moderator');
+            setCookie('role', from);
+            setCookie('user_id', user._id);
             break;
           }
         }
@@ -27,10 +27,25 @@ function useAuthentication() {
       .catch((err) => {
         console.log(`${err}`);
       });
-    console.log(`logindata: ${loginData}`);
   };
 
-  return { login };
+  // register a user
+  const signIn = (data, from) => {
+    axios
+      .post(`http://localhost:8082/api/users/${from}`, data)
+      .then(() => {
+        if (from === 'moderators') {
+          navigate('/Moderate');
+        } else {
+          navigate('/Analyse');
+        }
+      })
+      .catch(() => {
+        console.log('Error in create user');
+      });
+  };
+
+  return { login, signIn };
 }
 
 export default useAuthentication;
