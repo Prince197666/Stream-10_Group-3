@@ -5,7 +5,7 @@ import {
 import Home from './pages/Home';
 import Moderate from './pages/Moderate';
 import ModeratorForm from './pages/ModeratorForm';
-import SubmitArticle from './pages/SubmitArticle';
+import SubmitArticle from './components/SubmitArticle';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/SubmitArticle" element={<SubmitArticle />} />
+            <Route path="/Submit-Article" component={SubmitArticle} />
             <Route exact path="/Moderate" element={<Moderate />} />
             <Route path="/show-article/:id" element={<ModeratorForm />} />
           </Routes>

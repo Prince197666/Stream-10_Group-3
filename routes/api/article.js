@@ -30,4 +30,13 @@ router.get("/id/:id", (req, res) => {
     });
 });
 
+// @route GET api/articles
+// @description add/save articles
+// @access Public
+router.post('/', (req, res) => {
+  Article.create(req.body)
+    .then(articles => res.json({ msg: 'Article added successfully' }))
+    .catch(err => res.status(400).json({ error: 'Unable to add this Article' }));
+});
+
 module.exports = router;
