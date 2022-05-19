@@ -29,6 +29,16 @@ router.get("/id/:id", (req, res) => {
       res.status(404).json({ noarticlesfound: "No Articles found" });
     });
 });
+// @route GET api/articles
+// @description add/save articles
+// @access Public
+router.post('/', (req, res) => {
+  Article.create(req.body)
+    .then(articles => res.json({ msg: 'Article added successfully' }))
+    .catch(err => res.status(400).json({ error: 'Unable to add this Article' }));
+
+
+});
 
 // @route GET api/articles/:id
 // @description Update book
@@ -39,6 +49,6 @@ router.put("/id/:id", (req, res) => {
     .catch((err) =>
       res.status(400).json({ error: "Unable to update the Database" })
   );
-});
+
 
 module.exports = router;

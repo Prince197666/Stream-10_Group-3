@@ -5,7 +5,11 @@ import {
 import Home from './pages/Home';
 import Moderate from './pages/Moderate';
 import ModeratorForm from './pages/ModeratorForm';
+
 import Analyse from './pages/Analyse';
+
+import SubmitArticle from './components/SubmitArticle';
+
 
 function App() {
   return (
@@ -15,13 +19,14 @@ function App() {
         <ul className="header">
           <li><NavLink to="/">Home</NavLink></li>
           <li><NavLink to="/">Search</NavLink></li>
-          <li><NavLink to="/">Submit</NavLink></li>
+          <li><NavLink to="/SubmitArticle">Submit</NavLink></li>
           <li><NavLink to="/Moderate">Moderate</NavLink></li>
           <li><NavLink to="/Analyse">Analyze</NavLink></li>
         </ul>
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Home />} />
+            <Route path="/Submit-Article" component={SubmitArticle} />
             <Route exact path="/Moderate" element={<Moderate />} />
             <Route path="/Moderate/:id" element={<Moderate />} />
             <Route path="/show-article/:id" element={<ModeratorForm />} />
