@@ -2,20 +2,25 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useFetchArticle from '../hooks/useFetchArticle';
 
-function ArticleList() {
+function ArticleList(props) {
+  // eslint-disable-next-line react/prop-types
+  const { from } = props;
   const { articleList, getArticleByStatus } = useFetchArticle();
   useEffect(() => {
-    getArticleByStatus('submit');
+    const stat = (from === 'moderators') ? 'submit' : 'pass';
+    getArticleByStatus(stat);
   }, []);
 
   return (
     <>
-      <p>Unchecked Articles</p>
-      <ul>
-        {articleList.map((article) => (
-          <Link to={`/show-article/${article._id}`}>{article.title}</Link>
+      <p>Article List</p>
+      <ol>
+        {articleList.map((article, index) => (
+          <li key={(index + 1).toString()}>
+            <Link to={`/show-article/${article._id}`}>{article.title}</Link>
+          </li>
         ))}
-      </ul>
+      </ol>
     </>
   );
 }
