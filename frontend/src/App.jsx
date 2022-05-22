@@ -26,7 +26,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route path="/Submit-Article" component={SubmitArticle} />
+            <Route path="*" element={<SubmitArticle />} />
             <Route exact path="/Moderate" element={<Moderate />} />
             <Route path="/Moderate/:id" element={<Moderate />} />
             <Route path="/show-article/:id" element={<ModeratorForm />} />

@@ -35,16 +35,19 @@ class SubmitArticle extends Component {
       journal_name: this.state.journal_name,
       year_of_publication: this.state.year_of_publication,
       se_practice: this.state.se_practice,
-      claimed_benefit: this.state.claimed_benefit,
+      // claimed_benefit: this.state.claimed_benefit,
+      claimed_benefit: [],
       result_of_evidence: this.state.result_of_evidence,
       type_of_research: this.state.type_of_research,
       type_of_participant: this.state.type_of_participant,
       doi: this.state.doi,
       submitter_email: this.state.submitter_email,
+      status: 'submit'
     };
+    console.log(data);
 
     axios
-      .post('/api/article', data)
+      .post('http://localhost:8082/api/articles', data)
       .then((res) => {
         this.setState({
           title: '',
@@ -52,16 +55,17 @@ class SubmitArticle extends Component {
           journal_name: '',
           year_of_publication: '',
           se_practice: '',
-          claimed_benefit: '',
+          // claimed_benefit: '',
           result_of_evidence: '',
           type_of_research: '',
           type_of_participant: '',
           doi: '',
           submitter_email: '',
         });
-        this.props.history.push('/');
+        // this.props.history.push('/');
       })
       .catch((err) => {
+        console.log(err);
         console.log('Error in SubmitArticle!');
       });
   };
@@ -122,16 +126,7 @@ class SubmitArticle extends Component {
             />
           </div>
           <br />
-          <div>
-            <input
-              type="text"
-              placeholder="SE Practice"
-              name="se_practice"
-              value={this.state.se_practice}
-              onChange={this.onChange}
-            />
-          </div>
-          <br />
+          
           <div>
             <input
               type="text"
@@ -191,6 +186,7 @@ class SubmitArticle extends Component {
               onChange={this.onChange}
             />
           </div>
+          <br />
           <input
             type="submit"
           />
