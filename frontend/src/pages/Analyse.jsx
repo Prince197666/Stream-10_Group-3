@@ -6,9 +6,9 @@ import Login from '../components/Login';
 import ArticleList from '../components/ArticleList';
 import SignIn from '../components/SignIn';
 
-function Moderate() {
+function Analyse() {
   const [cookie] = useCookies();
-  const role = 'moderators';
+  const role = 'analysts';
   const { id } = useParams();
 
   const isLoggedIn = () => ((cookie != null) && ('role' in cookie) && (cookie.role === role));
@@ -26,4 +26,4 @@ function Moderate() {
   );
 }
 
-export default Moderate;
+export default Analyse;
