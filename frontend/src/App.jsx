@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   Route, NavLink, Routes, BrowserRouter as Router,
@@ -5,6 +6,7 @@ import {
 import Home from './pages/Home';
 import Moderate from './pages/Moderate';
 import ModeratorForm from './pages/ModeratorForm';
+import SearchForm from './components/SearchForm';
 
 import Analyse from './pages/Analyse';
 
