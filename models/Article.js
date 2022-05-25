@@ -20,13 +20,13 @@ const ArticleSchema = new mongoose.Schema({
     type: Array,
   },
   result_of_evidence: {
-    type: String,
+    type: Array,
   },
   type_of_research: {
-    type: String,
+    type: Array,
   },
   type_of_participant: {
-    type: String,
+    type: Array,
   },
   doi: {
     type: String,

@@ -10,7 +10,6 @@ import Analyse from './pages/Analyse';
 
 import SubmitArticle from './components/SubmitArticle';
 
-
 function App() {
   return (
     <Router>
