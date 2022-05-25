@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   Route, NavLink, Routes, BrowserRouter as Router,
@@ -7,6 +8,11 @@ import Moderate from './pages/Moderate';
 import ModeratorForm from './pages/ModeratorForm';
 import SearchForm from './components/SearchForm';
 
+import Analyse from './pages/Analyse';
+
+import SubmitArticle from './components/SubmitArticle';
+
+
 function App() {
   return (
     <Router>
@@ -15,16 +21,19 @@ function App() {
         <ul className="header">
           <li><NavLink to="/">Home</NavLink></li>
           <li><NavLink to="/">Search</NavLink></li>
-          <li><NavLink to="/">Submit</NavLink></li>
+          <li><NavLink to="/SubmitArticle">Submit</NavLink></li>
           <li><NavLink to="/Moderate">Moderate</NavLink></li>
-          <li><NavLink to="/">Analyze</NavLink></li>
+          <li><NavLink to="/Analyse">Analyze</NavLink></li>
         </ul>
         <div className="content">
           <Routes>
             <Route exact path="/" element={<Home />} />
+            <Route path="/Submit-Article" component={SubmitArticle} />
             <Route exact path="/Moderate" element={<Moderate />} />
+            <Route path="/Moderate/:id" element={<Moderate />} />
             <Route path="/show-article/:id" element={<ModeratorForm />} />
-            <Route path="/Search-Form" component={SearchForm} />
+            <Route exact path="/Analyse" element={<Analyse />} />
+            <Route path="/Analyse/:id" element={<Analyse />} />
           </Routes>
         </div>
       </div>
