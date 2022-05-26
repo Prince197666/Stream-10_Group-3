@@ -6,7 +6,7 @@ function useFileRegister() {
 
   const udpateArticle = (id, data, role) => {
     axios
-      .put(`http://localhost:8082/api/articles//id/${id}`, data)
+      .put(`http://localhost:8082/api/articles/id/${id}`, data)
       .then((res) => {
         console.log(`update success: ${res}`);
         if (role === 'moderators') {
