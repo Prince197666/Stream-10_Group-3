@@ -35,6 +35,12 @@ class SubmitArticle extends Component {
     this.setState({ [e.target.name]: arrayData });
   };
 
+  onValueChange = (e) => {
+    this.setState({
+      se_practice: e.target.value,
+    });
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -126,13 +132,29 @@ class SubmitArticle extends Component {
           </div>
           <br />
           <div>
-            <input
-              type="text"
-              placeholder="SE Practice"
-              name="se_practice"
-              value={this.state.se_practice}
-              onChange={this.onChange}
-            />
+            <p>SE Practice:</p>
+          </div>
+          <div className="radio">
+            <label>
+              <input
+                type="radio"
+                value="TDD"
+                checked={this.state.se_practice === 'TDD'}
+                onChange={this.onValueChange}
+              />
+              TDD
+            </label>
+          </div>
+          <div className="radio">
+            <label>
+              <input
+                type="radio"
+                value="Mob Programming"
+                checked={this.state.se_practice === 'Mob Programming'}
+                onChange={this.onValueChange}
+              />
+              Mob Programming
+            </label>
           </div>
           <br />
 
