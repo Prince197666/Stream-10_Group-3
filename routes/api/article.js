@@ -36,8 +36,6 @@ router.post('/', (req, res) => {
   Article.create(req.body)
     .then(articles => res.json({ msg: 'Article added successfully' }))
     .catch(err => res.status(400).json({ error: 'Unable to add this Article' }));
-
-
 });
 
 // @route GET api/articles/:id
@@ -46,9 +44,8 @@ router.post('/', (req, res) => {
 router.put("/id/:id", (req, res) => {
   Article.findByIdAndUpdate(req.params.id, req.body)
     .then((article) => res.json({ msg: "Updated successfully" }))
-    .catch((err) =>
-      res.status(400).json({ error: "Unable to update the Database" })
-  );
+    .catch((err) => res.status(400).json({ error: "Unable to update the Database" }))
+});
 
 
 module.exports = router;
