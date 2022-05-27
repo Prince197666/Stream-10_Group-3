@@ -1,15 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 
 function SearchTable({ data, columns }) {
-//   const {articleList, getArticleByStatus} = useFetchArticle();
-
-  //   // constructor
-  //   useEffect(() => {
-  //     getArticleByStatus('register');
-  //   }, []);
   const {
     getTableProps,
     getTableBodyProps,
@@ -24,6 +18,7 @@ function SearchTable({ data, columns }) {
     gotoPage,
     pageOptions,
     setPageSize,
+    allColumns,
     state: { pageIndex, pageSize },
   } = useTable(
     {
@@ -36,6 +31,19 @@ function SearchTable({ data, columns }) {
 
   return (
     <>
+      <div>
+        <strong>
+          Select column to display/hide
+        </strong>
+      </div>
+      <div className="mb-3">
+        {allColumns.map((column, i) => (
+          <div className="form-check form-check-inline" key={column.id}>
+            <input className="form-check-input" type="checkbox" id={`inlineCheckbox${i + 1}`} {...column.getToggleHiddenProps()} />
+            <label className="form-check-label" htmlFor={`inlineCheckbox${i + 1}`}>{column.id}</label>
+          </div>
+        ))}
+      </div>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
