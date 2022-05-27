@@ -1,9 +1,15 @@
 import React from 'react';
-import { useTable, useSortBy, usePagination } from 'react-table';
+import {
+  useTable, useSortBy, usePagination, useFilters,
+} from 'react-table';
+import { SelectSePracticeFilter } from './Filter';
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 
 function SearchTable({ data, columns }) {
+//   const defaultColumn = useMemo(() => ({
+//     Filter: SelectSePracticeFilter,
+//   }), []);
   const {
     getTableProps,
     getTableBodyProps,
@@ -24,14 +30,25 @@ function SearchTable({ data, columns }) {
     {
       columns,
       data,
+      defaultColumn: { Filter: SelectSePracticeFilter },
     },
+    useFilters,
     useSortBy,
     usePagination,
   );
 
   return (
     <>
+      {/* filter input */}
       <div>
+        {allColumns.map((column, i) => (
+          <div key={`${i + 1}`} className="mb-2">
+            {column.canFilter ? column.render('Filter') : null}
+          </div>
+        ))}
+      </div>
+      {/* show/hide checkbox */}
+      <div className="mt-3">
         <strong>
           Select column to display/hide
         </strong>
