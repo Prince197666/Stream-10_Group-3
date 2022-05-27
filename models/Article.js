@@ -17,16 +17,16 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
   },
   claimed_benefit: {
-    type: Array,
+    type: String,
   },
   result_of_evidence: {
-    type: Array,
+    type: String,
   },
   type_of_research: {
-    type: Array,
+    type: String,
   },
   type_of_participant: {
-    type: Array,
+    type: String,
   },
   doi: {
     type: String,
