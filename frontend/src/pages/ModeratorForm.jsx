@@ -5,11 +5,13 @@ import { useForm, Controller } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import useFetchArticle from '../hooks/useFetchArticle';
 import useArticleRegister from '../hooks/useArticleRegister';
+import useAuthentication from '../hooks/useUserAuthentication';
 
 function ModeratorForm() {
   const { article, getArticleById } = useFetchArticle();
   const { id } = useParams();
   const { udpateArticle } = useArticleRegister();
+  const { analysts, getAllAnalysts } = useAuthentication();
   const [cookie] = useCookies();
   const [isModerator, setIsModertor] = useState(false);
   const sePractice = ['TDD', 'Mob Programming'];
@@ -26,6 +28,7 @@ function ModeratorForm() {
   useEffect(() => {
     getArticleById(id);
     setIsModertor((cookie.role === 'moderators'));
+    getAllAnalysts();
   }, []);
 
   // when an docuemnt info was retrieved, fill the inputs in the form
@@ -36,7 +39,13 @@ function ModeratorForm() {
   }, [article]);
 
   const onSubmit = (data) => {
-    udpateArticle(id, data, cookie.role);
+    let notifyTo = null;
+    if (isModerator) {
+      notifyTo = analysts;
+    } else {
+      notifyTo = data.submitter_email;
+    }
+    udpateArticle(id, data, cookie.role, notifyTo);
   };
 
   const handlePassSubmit = () => {

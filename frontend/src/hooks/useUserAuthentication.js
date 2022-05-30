@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
+import { useState } from 'react';
 
 function useAuthentication() {
   const navigate = useNavigate();
   const [, setCookie] = useCookies();
+  const [analysts, setAnalysts] = useState([]);
 
   const login = (loginData, from) => {
     // extract name and password from submitted data
@@ -45,7 +47,18 @@ function useAuthentication() {
       });
   };
 
-  return { login, signIn };
+  const getAllAnalysts = () => {
+    axios
+      .get('http://localhost:8082/api/users/analysts/')
+      .then((res) => {
+        setAnalysts(res.data);
+      })
+      .catch();
+  };
+
+  return {
+    analysts, login, signIn, getAllAnalysts,
+  };
 }
 
 export default useAuthentication;
