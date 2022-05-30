@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import axios from 'axios';
-// import { FileUploader } from 'react-drag-drop-files';
+import parseBibText from './bibparser';
 
 class SubmitArticle extends Component {
   constructor(props) {
@@ -49,8 +49,6 @@ class SubmitArticle extends Component {
       status: 'submit',
     };
 
-    console.log(data);
-
     axios
       .post('http://localhost:8082/api/articles', data)
       // eslint-disable-next-line no-unused-vars
@@ -74,6 +72,31 @@ class SubmitArticle extends Component {
         console.log(err);
         console.log('Error in SubmitArticle!');
       });
+  };
+
+  // receive BibText and parse it.
+  // eslint-disable-next-line class-methods-use-this
+  onDrop = (e) => {
+    const input = e.target;
+
+    if (input.files.length > 0) {
+      const file = input.files.item(0);
+      // file extension check
+      if (file.name.slice(-3) === 'bib') {
+        const reader = new FileReader();
+        reader.onload = () => {
+          // parse BibText
+          const data = parseBibText(`${reader.result}`);
+          // set each value
+          this.setState({ title: data[0].entryTags.title });
+          this.setState({ author: data[0].entryTags.author });
+          this.setState({ journal_name: data[0].entryTags.journal });
+          this.setState({ year_of_publication: data[0].entryTags.year });
+          this.setState({ doi: data[0].entryTags.doi });
+        };
+        reader.readAsText(file);
+      }
+    }
   };
 
   render() {
@@ -261,6 +284,10 @@ class SubmitArticle extends Component {
                 className="form-control"
               />
             </div>
+          </div>
+
+          <div className="form-group row mb-3">
+            <input type="file" onChange={this.onDrop} />
           </div>
 
           <input
