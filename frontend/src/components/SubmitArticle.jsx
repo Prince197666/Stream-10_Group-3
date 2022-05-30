@@ -12,33 +12,22 @@ class SubmitArticle extends Component {
       journal_name: '',
       year_of_publication: '',
       se_practice: '',
-      claimed_benefit: [],
-      result_of_evidence: [],
-      type_of_research: [],
-      type_of_participant: [],
+      claimed_benefit: '',
+      result_of_evidence: '',
+      type_of_research: '',
+      type_of_participant: '',
       doi: '',
       submitter_email: '',
     };
-    this.claimedBenefit = ['Code Quality', 'Improvement', 'Product Quality', 'Against', 'Team Satisfaction'];
-    this.resultOfEvidence = ['Strong', 'Weak', 'Support', 'Against'];
+    this.sePractice = ['TDD', 'Mob Programming'];
+    this.claimedBenefit = ['Code Quality Improvement', 'Product Quality Improvement', 'Team Satisfaction'];
+    this.resultOfEvidence = ['Strong Support', 'Strong Support', ' WeakSupport', 'Weak Against'];
     this.typeOfResearch = ['Case Study', 'Experiment'];
     this.typeOfParticipant = ['Student', 'Practitioner'];
   }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  onChangeArray = (e) => {
-    const arrayData = this.state[e.target.name].slice();
-    arrayData.push(e.target.value);
-    this.setState({ [e.target.name]: arrayData });
-  };
-
-  onValueChange = (e) => {
-    this.setState({
-      se_practice: e.target.value,
-    });
   };
 
   onSubmit = (e) => {
@@ -70,10 +59,10 @@ class SubmitArticle extends Component {
           journal_name: '',
           year_of_publication: '',
           se_practice: '',
-          claimed_benefit: [],
-          result_of_evidence: [],
-          type_of_research: [],
-          type_of_participant: [],
+          claimed_benefit: '',
+          result_of_evidence: '',
+          type_of_research: '',
+          type_of_participant: '',
           doi: '',
           submitter_email: '',
         });
@@ -90,73 +79,82 @@ class SubmitArticle extends Component {
         <h1>Submit Article</h1>
 
         <form noValidate onSubmit={this.onSubmit}>
-          <div>
-            <input
-              type="text"
-              placeholder="Title"
-              name="title"
-              value={this.state.title}
-              onChange={this.onChange}
-            />
-          </div>
-          <br />
-          <div>
-            <input
-              type="text"
-              placeholder="Author"
-              name="author"
-              value={this.state.author}
-              onChange={this.onChange}
-            />
-          </div>
-          <br />
-          <div>
-            <input
-              type="text"
-              placeholder="Journal Name"
-              name="journal_name"
-              value={this.state.journal_name}
-              onChange={this.onChange}
-            />
-          </div>
-          <br />
-          <div>
-            <label htmlFor="year_of_publication" className="col-sm-2 col-form-label">Date:</label>
-            <input
-              type="date"
-              placeholder="Year Of Publication"
-              name="year_of_publication"
-              value={this.state.year_of_publication}
-              onChange={this.onChange}
-            />
-          </div>
-          <br />
-          <div>
-            <p>SE Practice:</p>
-          </div>
-          <div className="radio">
-            <label>
+          <div className="form-group row mb-3">
+            <label htmlFor="title" className="col-sm-2 col-form-label">Titile:</label>
+            <div className="col-sm-10">
               <input
-                type="radio"
-                value="TDD"
-                checked={this.state.se_practice === 'TDD'}
-                onChange={this.onValueChange}
+                type="text"
+                placeholder="Title"
+                name="title"
+                value={this.state.title}
+                onChange={this.onChange}
+                className="form-control"
               />
-              TDD
-            </label>
+            </div>
           </div>
-          <div className="radio">
-            <label>
+
+          <div className="form-group row mb-3">
+            <label htmlFor="author" className="col-sm-2 col-form-label">Author:</label>
+            <div className="col-sm-10">
               <input
-                type="radio"
-                value="Mob Programming"
-                checked={this.state.se_practice === 'Mob Programming'}
-                onChange={this.onValueChange}
+                type="text"
+                placeholder="Author"
+                name="author"
+                value={this.state.author}
+                onChange={this.onChange}
+                className="form-control"
               />
-              Mob Programming
-            </label>
+            </div>
           </div>
+
+          <div className="form-group row mb-3">
+            <label htmlFor="journal_name" className="col-sm-2 col-form-label">Journal Name:</label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                placeholder="Journal Name"
+                name="journal_name"
+                value={this.state.journal_name}
+                onChange={this.onChange}
+                className="form-control"
+              />
+            </div>
+          </div>
+
           <br />
+          <div className="form-group row mb-3">
+            <label htmlFor="year_of_publication" className="col-sm-2 col-form-label">Year Of Publication:</label>
+            <div className="col-sm-5">
+              <input
+                type="text"
+                placeholder="Year Of Publication"
+                name="year_of_publication"
+                id="datepicker"
+                value={this.state.year_of_publication}
+                onChange={this.onChange}
+                className="form-control"
+              />
+            </div>
+          </div>
+
+          <div className="form-group row mb-3">
+            <label htmlFor="se-practice" className="col-sm-2 col-form-label">SE Practice:</label>
+            <div className="col-sm-10">
+              {this.sePractice.map((practice, index) => (
+                <div key={`se-pratice-div${index + 1}`} className="form-check form-check-inline">
+                  <input
+                    key={(index + 1).toString()}
+                    className="form-check-input"
+                    type="radio"
+                    name="se_practice"
+                    value={practice}
+                    onChange={this.onChange}
+                  />
+                  <label htmlFor={`SEPractice${index + 1}`} key={`se_practice${index + 1}`}>{practice}</label>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <div className="form-group row mb-3">
             <label htmlFor="claimed_benefit" className="col-sm-2 col-form-label">Claimed Benefit:</label>
@@ -166,17 +164,16 @@ class SubmitArticle extends Component {
                   <input
                     key={(index + 1).toString()}
                     className="form-check-input"
-                    type="checkbox"
+                    type="radio"
                     name="claimed_benefit"
                     value={benefit}
-                    onChange={this.onChangeArray}
+                    onChange={this.onChange}
                   />
-                  <label htmlFor={`this.claimedBenefit${index + 1}`} key={`benefit-name${index + 1}`}>{benefit}</label>
+                  <label htmlFor={`claimedBenefit${index + 1}`} key={`benefit-name${index + 1}`}>{benefit}</label>
                 </div>
               ))}
             </div>
           </div>
-          <br />
 
           <div className="form-group row mb-3">
             <label htmlFor="result_of_evidence" className="col-sm-2 col-form-label">Result of Evidence:</label>
@@ -186,34 +183,31 @@ class SubmitArticle extends Component {
                   <input
                     key={(index + 1).toString()}
                     className="form-check-input"
-                    type="checkbox"
+                    type="radio"
                     name="result_of_evidence"
-                    // value={this.state.result_of_evidence}
                     value={evidence}
-                    onChange={this.onChangeArray}
+                    onChange={this.onChange}
                   />
-                  <label htmlFor={`this.resultOfEvidence${index + 1}`} key={`evidence-name${index + 1}`}>{evidence}</label>
+                  <label htmlFor={`resultOfEvidence${index + 1}`} key={`evidence-name${index + 1}`}>{evidence}</label>
                 </div>
               ))}
             </div>
           </div>
 
-          <br />
-
           <div className="form-group row mb-3">
-            <label htmlFor="type_of_research" className="col-sm-2 col-form-label">Type of Research</label>
+            <label htmlFor="type_of_research" className="col-sm-2 col-form-label">Type of Research:</label>
             <div className="col-sm-10">
               {this.typeOfResearch?.map((research, index) => (
                 <div key={`research-div${index + 1}`} className="form-check form-check-inline">
                   <input
                     key={(index + 1).toString()}
                     className="form-check-input"
-                    type="checkbox"
+                    type="radio"
                     name="type_of_research"
                     value={research}
-                    onChange={this.onChangeArray}
+                    onChange={this.onChange}
                   />
-                  <label htmlFor={`this.typeOfResearch${index + 1}`} key={`research-name${index + 1}`}>{research}</label>
+                  <label htmlFor={`typeOfResearch${index + 1}`} key={`research-name${index + 1}`}>{research}</label>
                 </div>
               ))}
             </div>
@@ -227,37 +221,45 @@ class SubmitArticle extends Component {
                   <input
                     key={(index + 1).toString()}
                     className="form-check-input"
-                    type="checkbox"
+                    type="radio"
                     name="type_of_participant"
                     value={participant}
-                    onChange={this.onChangeArray}
+                    onChange={this.onChange}
                   />
-                  <label htmlFor={`this.typeOfParticipant${index + 1}`} key={`participant-name${index + 1}`}>{participant}</label>
+                  <label htmlFor={`typeOfParticipant${index + 1}`} key={`participant-name${index + 1}`}>{participant}</label>
                 </div>
               ))}
             </div>
           </div>
-          <br />
-          <div>
-            <input
-              type="text"
-              placeholder="DOI"
-              name="doi"
-              value={this.state.doi}
-              onChange={this.onChange}
-            />
+
+          <div className="form-group row mb-3">
+            <label htmlFor="doi" className="col-sm-2 col-form-label">DOI:</label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                placeholder="DOI"
+                name="doi"
+                value={this.state.doi}
+                onChange={this.onChange}
+                className="form-control"
+              />
+            </div>
           </div>
-          <br />
-          <div>
-            <input
-              type="text"
-              placeholder="Email"
-              name="submitter_email"
-              value={this.state.submitter_email}
-              onChange={this.onChange}
-            />
+
+          <div className="form-group row mb-3">
+            <label htmlFor="email" className="col-sm-2 col-form-label">Email:</label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                placeholder="Email"
+                name="submitter_email"
+                value={this.state.submitter_email}
+                onChange={this.onChange}
+                className="form-control"
+              />
+            </div>
           </div>
-          <br />
+
           <input
             type="submit"
           />
