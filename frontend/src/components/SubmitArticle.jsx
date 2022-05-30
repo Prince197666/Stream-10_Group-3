@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -19,6 +20,8 @@ class SubmitArticle extends Component {
       type_of_participant: '',
       doi: '',
       submitter_email: '',
+      // eslint-disable-next-line react/no-unused-state
+      moderators: [],
     };
     this.sePractice = ['TDD', 'Mob Programming'];
     this.claimedBenefit = ['Code Quality Improvement', 'Product Quality Improvement', 'Team Satisfaction'];
@@ -29,6 +32,7 @@ class SubmitArticle extends Component {
     this.navigate = this.props.navigate;
   }
 
+  // eslint-disable-next-line react/sort-comp
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -54,6 +58,13 @@ class SubmitArticle extends Component {
       .post('http://localhost:8082/api/articles', data)
       // eslint-disable-next-line no-unused-vars
       .then((res) => {
+        // send a notification e-mail to moderators
+        if (this.state.moderators.length > 0) {
+          axios.post('http://localhost:8082/api/email/moderator', this.state.moderators)
+            .then()
+            .catch();
+        }
+
         this.setState({
           title: '',
           author: '',
@@ -102,6 +113,19 @@ class SubmitArticle extends Component {
   setYear = (date) => {
     this.setState({ year_of_publication: date.getFullYear() });
   };
+
+  componentDidMount() {
+    // get moderators to send a emial
+    axios
+      .get('http://localhost:8082/api/users/moderators/')
+      .then((res) => {
+        // eslint-disable-next-line react/no-unused-state
+        this.setState({ moderators: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   render() {
     return (
