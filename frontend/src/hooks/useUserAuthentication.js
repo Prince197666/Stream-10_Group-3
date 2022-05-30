@@ -27,6 +27,7 @@ function useAuthentication() {
         }
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.log(`${err}`);
       });
   };
@@ -43,6 +44,7 @@ function useAuthentication() {
         }
       })
       .catch(() => {
+        // eslint-disable-next-line no-console
         console.log('Error in create user');
       });
   };
