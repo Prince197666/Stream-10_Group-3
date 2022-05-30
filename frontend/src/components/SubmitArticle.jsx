@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
 import parseBibText from './bibparser';
 
 class SubmitArticle extends Component {
@@ -75,7 +76,6 @@ class SubmitArticle extends Component {
   };
 
   // receive BibText and parse it.
-  // eslint-disable-next-line class-methods-use-this
   onDrop = (e) => {
     const input = e.target;
 
@@ -97,6 +97,10 @@ class SubmitArticle extends Component {
         reader.readAsText(file);
       }
     }
+  };
+
+  setYear = (date) => {
+    this.setState({ year_of_publication: date.getFullYear() });
   };
 
   render() {
@@ -151,14 +155,14 @@ class SubmitArticle extends Component {
           <div className="form-group row mb-3">
             <label htmlFor="year_of_publication" className="col-sm-2 col-form-label">Year Of Publication:</label>
             <div className="col-sm-5">
-              <input
-                type="text"
-                placeholder="Year Of Publication"
-                name="year_of_publication"
-                id="datepicker"
-                value={this.state.year_of_publication}
-                onChange={this.onChange}
-                className="form-control"
+              <DatePicker
+                // className="form-control"
+                selected={(this.state.year_of_publication)
+                  ? new Date(`${this.state.year_of_publication}/1/1`)
+                  : new Date()}
+                onChange={this.setYear}
+                showYearPicker
+                dateFormat="yyyy"
               />
             </div>
           </div>
@@ -292,6 +296,7 @@ class SubmitArticle extends Component {
 
           <input
             type="submit"
+            value="Submit"
           />
         </form>
       </div>
