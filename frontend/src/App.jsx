@@ -6,10 +6,8 @@ import Home from './pages/Home';
 import Moderate from './pages/Moderate';
 import ModeratorForm from './pages/ModeratorForm';
 import Search from './pages/Search';
-
 import Analyse from './pages/Analyse';
-
-import SubmitArticle from './components/SubmitArticle';
+import WrapSubmitArticle from './components/WrapSubmitArticle';
 
 function App() {
   return (
@@ -27,7 +25,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/Search" element={<Search />} />
-            <Route path="*" element={<SubmitArticle />} />
+            <Route path="SubmitArticle" element={<WrapSubmitArticle />} />
             <Route exact path="/Moderate" element={<Moderate />} />
             <Route path="/Moderate/:id" element={<Moderate />} />
             <Route path="/show-article/:id" element={<ModeratorForm />} />

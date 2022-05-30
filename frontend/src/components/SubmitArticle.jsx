@@ -4,8 +4,8 @@ import axios from 'axios';
 // import { FileUploader } from 'react-drag-drop-files';
 
 class SubmitArticle extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: '',
       author: '',
@@ -24,6 +24,8 @@ class SubmitArticle extends Component {
     this.resultOfEvidence = ['Strong Support', 'Strong Support', ' WeakSupport', 'Weak Against'];
     this.typeOfResearch = ['Case Study', 'Experiment'];
     this.typeOfParticipant = ['Student', 'Practitioner'];
+    // eslint-disable-next-line react/prop-types
+    this.navigate = this.props.navigate;
   }
 
   onChange = (e) => {
@@ -66,6 +68,7 @@ class SubmitArticle extends Component {
           doi: '',
           submitter_email: '',
         });
+        this.navigate('/');
       })
       .catch((err) => {
         console.log(err);
