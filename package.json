@@ -4,13 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node server.js",
     "build": "cd frontend && npm run build",
     "install-frontend": "cd frontend && npm install",
     "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\"",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\"",
-    "heroku-postbuild": "npm run install-frontend && npm run build"
+    "heroku-postbuild": "npm run install-frontend && npm run build",
+    "test": "cd frontend && npm run test"
   },
   "repository": {
     "type": "git",
