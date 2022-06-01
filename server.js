@@ -5,6 +5,7 @@ const cors = require('cors');
 // routes
 const users = require("./routes/api/user");
 const articles = require("./routes/api/article");
+const email = require("./routes/api/email");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.json({ extended: false }));
 // use Routes
 app.use("/api/users", users);
 app.use("/api/articles", articles);
+app.use("/api/email", email);
 
 const port = process.env.PORT || 8082;
 app.listen(port, () => console.log(`Server running on port ${port}`));
