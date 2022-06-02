@@ -10,12 +10,11 @@
 
   },
   "scripts": {
-    "server": "node server.js",
+    "start": "node server.js",
+    "clietn": "cd frontend && npm start",
     "build": "cd frontend && npm run build",
-    "install-frontend": "cd frontend && npm install --legacy-peer-deps",
-    "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix frontend\"",
-    "heroku-postbuild": "npm run install-frontend && npm run build",
+    "install-client": "cd frontend && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build --legacy-peer-deps",
     "test": "cd frontend && npm run test"
   },
   "repository": {
