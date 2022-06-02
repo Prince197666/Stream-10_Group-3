@@ -55,12 +55,12 @@ class SubmitArticle extends Component {
     };
 
     axios
-      .post('http://localhost:8082/api/articles', data)
+      .post('/api/articles', data)
       // eslint-disable-next-line no-unused-vars
       .then((res) => {
         // send a notification e-mail to moderators
         if (this.state.moderators.length > 0) {
-          axios.post('http://localhost:8082/api/email/moderator', this.state.moderators)
+          axios.post('/api/email/moderator', this.state.moderators)
             .then()
             .catch();
         }
@@ -117,7 +117,7 @@ class SubmitArticle extends Component {
   componentDidMount() {
     // get moderators to send a emial
     axios
-      .get('http://localhost:8082/api/users/moderators/')
+      .get('/api/users/moderators/')
       .then((res) => {
         // eslint-disable-next-line react/no-unused-state
         this.setState({ moderators: res.data });
