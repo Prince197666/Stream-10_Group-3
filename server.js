@@ -18,7 +18,15 @@ app.use(cors({ origin: true, credentials: true }));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-// app.get('/', (req, res) => res.send('Hello world!'));
+if (process.env.NODE_ENV === "production") {
+  // Import the frontend build folder
+  app.use(express.static("frontend/build"));
+  
+  // Ensure that the routes defined with React Router are working once the application has been deployed.
+  app.get("/", function (request, response) {
+    response.sendFile(path.resolve(__dirname, "./frontend/build", "index.html"));
+  });
+}
 
 // use Routes
 app.use("/api/users", users);

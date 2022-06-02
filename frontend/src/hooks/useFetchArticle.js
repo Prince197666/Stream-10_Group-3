@@ -7,7 +7,7 @@ function useFetchArticle() {
 
   const getArticleByStatus = (status) => {
     axios
-      .get(`http://localhost:8082/api/articles/status/${status}`)
+      .get(`/api/articles/status/${status}`)
       .then((res) => {
         setArticleList(res.data);
       })
@@ -18,7 +18,7 @@ function useFetchArticle() {
 
   const getArticleById = (id) => {
     axios
-      .get(`http://localhost:8082/api/articles/id/${id}`)
+      .get(`/api/articles/id/${id}`)
       .then((res) => {
         setArticle(res.data);
       })

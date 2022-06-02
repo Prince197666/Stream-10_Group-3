@@ -13,7 +13,7 @@ function useAuthentication() {
     const { name, password } = JSON.parse(loginData);
     // get all user(moderator/analyst) info
     axios
-      .get(`http://localhost:8082/api/users/${from}`)
+      .get(`/api/users/${from}`)
       .then((res) => {
         // check if username and password match
         for (let i = 0; i < res.data.length; i += 1) {
@@ -35,7 +35,7 @@ function useAuthentication() {
   // register a user
   const signIn = (data, from) => {
     axios
-      .post(`http://localhost:8082/api/users/${from}`, data)
+      .post(`/api/users/${from}`, data)
       .then(() => {
         if (from === 'moderators') {
           navigate('/Moderate');
@@ -51,7 +51,7 @@ function useAuthentication() {
 
   const getAllAnalysts = () => {
     axios
-      .get('http://localhost:8082/api/users/analysts/')
+      .get('/api/users/analysts/')
       .then((res) => {
         setAnalysts(res.data);
       })
