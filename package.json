@@ -13,7 +13,7 @@
     "start": "node server.js",
     "clietn": "cd frontend && npm start",
     "build": "cd frontend && npm run build",
-    "install-client": "cd frontend && npm install",
+    "install-client": "cd frontend && npm install --legacy-peer-deps",
     "heroku-postbuild": "npm run install-client && npm run build --legacy-peer-deps",
     "test": "cd frontend && npm run test"
   },
